@@ -1,0 +1,7 @@
+google-api-python-client==2.96.0
+google-auth-oauthlib
+chardet
+python-magic-bin
+trython
+typing_extensions
+inquirer
