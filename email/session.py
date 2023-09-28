@@ -1,4 +1,4 @@
-from gmail_bot import GmailBot
+from deps.gmail_bot import GmailBot
 import inquirer
 from inquirer.themes import GreenPassion
 

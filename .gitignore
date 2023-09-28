@@ -12,3 +12,5 @@ dist/
 *creds.json
 docs/_build
 .tox
+*credentials.json
+*playground.py

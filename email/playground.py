@@ -1,4 +1,3 @@
-import gmail_bot
 import google_workspace
 
 import inquirer
@@ -6,7 +5,6 @@ from inquirer.themes import GreenPassion
 from pprint import pprint
 
 import datetime
-from datetime import date
 
 
 def authenticate():
@@ -144,42 +142,72 @@ def main():
         )
     ]
     answers = inquirer.prompt(questions, theme=GreenPassion())
+    print("Here is the dict of filters selected:")
     pprint(answers)
+    filters = answers["filters"]
+    print("Here is a list of the filters: ", filters)
     new_vars = []
-    for x in answers['filters']:
-        if x == "From":
+    for filters in answers["filters"]:
+        if "From" in filters:
             var = from_()
             new_vars.append(var)
 
-        elif x == "Subject":
+        elif "From" not in filters:
+            var = None
+            new_vars.append(var)
+
+        elif "Subject" in filters:
             var = subject()
             new_vars.append(var)
 
-        elif x == "To":
+        elif "Subject" not in filters:
+            var = None
+            new_vars.append(var)
+
+        elif "To" in filters:
             var = to_address()
             new_vars.append(var)
 
-        elif x == "Date":
+        elif "To" not in filters:
+            var = None
+            new_vars.append(var)
+
+        elif "Date" in filters:
             var = filter_time()
             new_vars.append(var)
 
-        elif x == "Label Name":
+        elif "Date" not in filters:
+            var = None
+            new_vars.append(var)
+
+        elif "Label Name" in filters:
             var = label_name()
             new_vars.append(var)
 
-        elif x == "Spam & Trash":
+        elif "Label Name" not in filters:
+            var = None
+            new_vars.append(var)
+
+        elif "Spam & Trash" in filters:
             var = spam_trash()
             new_vars.append(var)
-    for message in cl.get_messages(
-            from_=new_vars[0],
-            subject=new_vars[1],
-            to=new_vars[2],
-            after=new_vars[3][0],
-            before=new_vars[3][1],
-            label_name=new_vars[4],
-            include_spam_and_trash=new_vars[5]
-    ):
-        yield message
+
+        elif "Spam & Trash" not in filters:
+            var = False
+            new_vars.append(var)
+
+    print(new_vars)
+
+  #  for message in cl.get_messages(
+  #          from_=new_vars[0],
+  #          subject=new_vars[1],
+  #          to=new_vars[2],
+  #          after=new_vars[3][0],
+  #          before=new_vars[3][1],
+  #          label_name=new_vars[4],
+  #          include_spam_and_trash=new_vars[5]
+  #  ):
+  #      yield message
 
 
 if __name__ == "__main__":
